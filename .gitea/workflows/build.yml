@@ -1,0 +1,37 @@
+name: Build Bitwarden Update Package
+
+on: [push]
+
+jobs:
+  build-deb:
+    runs-on: ubuntu-latest  # Або назва вашого ранера
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Prepare Package Structure
+        run: |
+          mkdir -p build/DEBIAN
+          mkdir -p build/usr/local/bin
+          mkdir -p build/etc/systemd/system
+          
+          # Копіюємо файли в тимчасову папку збірки
+          cp DEBIAN/* build/DEBIAN/
+          cp usr/local/bin/* build/usr/local/bin/
+          cp etc/systemd/system/* build/etc/systemd/system/
+          
+          # Виправляємо права доступу (важливо для deb)
+          chmod 755 build/DEBIAN/postinst
+          chmod +x build/usr/local/bin/update-bitwarden.sh
+          chmod 644 build/etc/systemd/system/bitwarden-update.*
+
+      - name: Build .deb Package
+        run: |
+          dpkg-deb --build build bitwarden-autoupdate.deb
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: bitwarden-deb-package
+          path: bitwarden-autoupdate.deb
+

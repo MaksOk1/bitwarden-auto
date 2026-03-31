@@ -1,0 +1,8 @@
+Package: bitwarden-autoupdate
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: all
+Maintainer: YourName <your@email.com>
+Description: Автоматичне оновлення Bitwarden через systemd
+Depends: wget, curl, apt

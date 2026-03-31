@@ -1,0 +1,20 @@
+[Unit]
+Description=Таймер для оновлення Bitwarden (після завантаження)
+
+[Timer]
+# Запустити через 5 хвилин після завантаження системи
+OnBootSec=5min
+# Повторювати перевірку кожні 24 години (опціонально)
+OnUnitActiveSec=24h
+# Дозволити невелике відхилення для економії енергії
+AccuracySec=1min
+Persistent=true
+
+# Запускати кожного понеділка о 12:00
+#OnCalendar=Mon *-*-* 12:00:00
+# Робити випадкову затримку до 1 години, щоб не навантажувати сервери в одну секунду
+#RandomizedDelaySec=3600
+#Persistent=true
+
+[Install]
+WantedBy=timers.target

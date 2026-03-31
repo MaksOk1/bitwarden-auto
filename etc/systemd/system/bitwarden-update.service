@@ -1,0 +1,11 @@
+[Unit]
+Description=Оновлення Bitwarden Desktop
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/bin/update-bitwarden.sh
+
+[Install]
+WantedBy=multi-user.target
