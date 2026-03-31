@@ -48,9 +48,9 @@ jobs:
       - name: Upload to Gitea Debian Registry
         run: |
           # Переконайся, що секрети GITEA_TOKEN та GITEA_URL додані в репозиторій
-          curl --user "${{ github.actor }}:${{ secrets.GITEA_TOKEN }}" \
+          curl --user "${{ github.actor }}:${{ secrets.TOKEN }}" \
                --upload-file "${{ env.PACKAGE_NAME }}" \
-               "${{ secrets.GITEA_URL }}/api/packages/${{ github.repository_owner }}/debian/pool/stable/main/upload"
+               "${{ vars.URL }}/api/packages/${{ github.repository_owner }}/debian/pool/stable/main/upload"
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v4
